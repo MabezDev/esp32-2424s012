@@ -1,0 +1,17 @@
+[package]
+name = "esp32-2424s012"
+version = "0.1.0"
+authors = ["Scott Mabin <scott@mabez.dev>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+hal = { package = "esp32c3-hal", version = "0.12.0", git = "https://github.com/esp-rs/esp-hal" }
+esp-backtrace = { version = "0.8.0", features = ["esp32c3", "panic-handler", "exception-handler", "print-uart"] }
+esp-println = { version = "0.6.0", features = ["esp32c3","log"] }
+log = { version = "0.4.18" }
+
+embedded-graphics = "0.8.0"
+embedded-graphics-framebuf = "0.5.0"
+display-interface-spi = "0.4.1"
+mipidsi = { version = "0.7.1", git = "https://github.com/almindor/mipidsi" }
