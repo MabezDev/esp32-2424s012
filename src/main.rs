@@ -11,7 +11,7 @@ use hal::{
     Delay, Spi, IO,
 };
 
-use embedded_graphics::{pixelcolor::Rgb565, prelude::*, primitives::Rectangle};
+use embedded_graphics::{pixelcolor::Rgb565, prelude::*};
 
 // Provides the parallel port and display interface builders
 use display_interface_spi::SPIInterfaceNoCS;
@@ -31,10 +31,10 @@ fn main() -> ! {
     // Define the Data/Command select pin as a digital output
     let dc = io.pins.gpio2.into_push_pull_output();
 
-    // only spi device
-    let _cs = io.pins.gpio10.into_push_pull_output().set_low().unwrap();
+    // cs: only spi device
+    io.pins.gpio10.into_push_pull_output().set_low().unwrap();
     // enable backlight
-    let _backlight = io.pins.gpio3.into_push_pull_output().set_high().unwrap();
+    io.pins.gpio3.into_push_pull_output().set_high().unwrap();
 
     // Define the SPI pins and create the SPI interface
     let sck = io.pins.gpio6;
@@ -84,7 +84,7 @@ fn main() -> ! {
 
 fn flush<T: DrawTarget<Color = Rgb565>>(
     display: &mut T,
-    fbuf: &mut FrameBuf<Rgb565, &mut [Rgb565; 57600]>,
+    fbuf: &FrameBuf<Rgb565, &mut [Rgb565; 57600]>,
 ) -> Result<(), T::Error> {
     display.draw_iter(fbuf.into_iter())?;
     Ok(())
